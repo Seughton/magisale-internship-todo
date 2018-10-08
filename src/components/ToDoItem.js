@@ -7,6 +7,11 @@ class ToDoItem extends Component {
         return (
             <div className="ToDoItem">
                 <p className="ToDoItem-Text">{this.props.item}</p>
+                <button className="deleteTodoBtn"
+                        onClick={this.props.removeToDo}
+                >
+                  X
+                </button>
             </div>
         );
     }

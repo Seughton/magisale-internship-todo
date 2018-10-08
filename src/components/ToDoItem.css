@@ -12,3 +12,7 @@
     padding: 12px;
     margin-right: 10px;
 }
+.deleteTodoBtn {
+    height: 45px;
+    width: 50px;
+}

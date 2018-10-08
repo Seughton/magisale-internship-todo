@@ -17,6 +17,7 @@ class ToDo extends Component {
             ],
             todo: ''
         };
+      this.removeToDoItem = this.removeToDoItem.bind(this);
     };
 
     createNewToDoItem = () => {
@@ -45,6 +46,14 @@ class ToDo extends Component {
       });
     };
 
+    removeToDoItem = (key) => {
+    let arr = this.state.list;
+    arr.splice(key,1);
+    this.setState ({
+      list: arr
+    })
+    };
+
     render() {
         return (
             <div className="ToDo">
@@ -58,6 +67,7 @@ class ToDo extends Component {
                                 return <ToDoItem
                                             key={key}
                                             item={item.todo}
+                                            removeToDo={this.removeToDoItem}
                                         />
                           }
                         )}
