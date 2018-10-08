@@ -12,7 +12,18 @@
     padding: 12px;
     margin-right: 10px;
 }
-.deleteTodoBtn {
+.deleteToDoBtn {
     height: 45px;
     width: 50px;
+}
+.editToDoBtn {
+    margin-left: 10px;
+    height: 45px;
+}
+.newToDoValue {
+
+}
+.saveNewToDoValue {
+
+    height: 45px;
 }

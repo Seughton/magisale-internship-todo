@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import './ToDo.css';
 import ToDoItem from './components/ToDoItem';
@@ -17,7 +18,6 @@ class ToDo extends Component {
             ],
             todo: ''
         };
-      this.removeToDoItem = this.removeToDoItem.bind(this);
     };
 
     createNewToDoItem = () => {
@@ -54,6 +54,23 @@ class ToDo extends Component {
     })
     };
 
+
+    handleChange = e => {
+      this.setState({ todo1: e.target.value })
+    };
+
+    saveNewToDoItem = (key) => {
+
+      let arr = this.state.list;
+
+      arr.splice(key, 1, { todo: this.state.todo1 });
+      this.setState ({
+        list: arr,
+      });
+
+    };
+
+
     render() {
         return (
             <div className="ToDo">
@@ -65,10 +82,14 @@ class ToDo extends Component {
 
                         {this.state.list.map((item, key) => {
                                 return <ToDoItem
-                                            key={key}
-                                            item={item.todo}
-                                            removeToDo={this.removeToDoItem}
-                                        />
+
+                                            key = {key}
+                                            item = {item.todo}
+                                            removeToDo = {this.removeToDoItem}
+                                            handleChange = {this.handleChange}
+                                            saveNewToDo = {this.saveNewToDoItem.bind(this, key)}
+
+                                       />
                           }
                         )}
                     </div>
