@@ -5,7 +5,7 @@
 }
 
 .ToDoItem-Text {
-    width: 90%;
+    width: 70%;
     background-color: white;
     border: 1px solid lightgrey;
     box-shadow: 1px 1px 1px lightgrey;
@@ -14,16 +14,25 @@
 }
 .deleteToDoBtn {
     height: 45px;
-    width: 50px;
+    width: 30px;
 }
 .editToDoBtn {
     margin-left: 10px;
     height: 45px;
 }
-.newToDoValue {
+.changeField {
+    display: flex;
+    align-items: center;
 
 }
-.saveNewToDoValue {
-
+.closeChangeField {
+    background-color: red;
     height: 45px;
+    margin-left: 5px;
+}
+
+.saveNewToDoValue {
+    height: 45px;
+    background-color: greenyellow;
+    margin-left: 5px;
 }

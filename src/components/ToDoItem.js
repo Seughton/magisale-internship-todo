@@ -14,6 +14,9 @@ class ToDoItem extends Component {
       this.setState({isClicked:true})
    };
 
+  closeChangeField = () => {
+      this.setState({isClicked:false})
+  }
 
     render() {
         return (
@@ -25,15 +28,17 @@ class ToDoItem extends Component {
                 </button>
               <button className='editToDoBtn' onClick={this.changeBtnClick} >Change</button>
               {this.state.isClicked ?
-                <div>
-                <button className='saveNewToDoValue'
-                        onClick={this.props.saveNewToDo} >
-                  Save
-                </button>
-                <input type="text" className='newToDoValue'
-                onChange={this.props.handleChange}
-                onClick={this.changeInputField}/>
-                </div>
+                  <div className="changeField">
+                  <button className='saveNewToDoValue'
+                          onClick={this.props.saveNewToDo} >
+                    V
+                  </button>
+                  <button className='closeChangeField' onClick={this.closeChangeField}>X</button>
+                    <br/>
+                  <input type="text" className='newToDoValue'
+                  onChange={this.props.handleChange}
+                  />
+                  </div>
                 : ""
               }
 

@@ -82,10 +82,9 @@ class ToDo extends Component {
 
                         {this.state.list.map((item, key) => {
                                 return <ToDoItem
-
                                             key = {key}
                                             item = {item.todo}
-                                            removeToDo = {this.removeToDoItem}
+                                            removeToDo = {this.removeToDoItem.bind(this,key)}
                                             handleChange = {this.handleChange}
                                             saveNewToDo = {this.saveNewToDoItem.bind(this, key)}
 
