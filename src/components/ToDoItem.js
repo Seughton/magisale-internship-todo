@@ -36,7 +36,7 @@ class ToDoItem extends Component {
                   <button className='closeChangeField' onClick={this.closeChangeField}>X</button>
                     <br/>
                   <input type="text" className='newToDoValue'
-                  onChange={this.props.handleChange}
+                         onChange={this.props.handleChange}
                   />
                   </div>
                 : ""

@@ -13,6 +13,9 @@ import editToDo from './Actions/editToDo';
 
 class ToDo extends Component {
 
+    state = {
+      value: ''
+    };
 
     createNewToDoItem = () => {
 
@@ -50,13 +53,19 @@ class ToDo extends Component {
     };
 
 
-    handleChange = e => {
-      console.log(e.target.value)
+      handleChange = (e) => {
+        this.setState({ value: e.target.value })
     };
 
     saveNewToDoItem = (key,value) => {
-      this.props.editToDo(key,value)
+      this.props.editToDo(value);
 
+      let arr = this.props.testStore;
+      console.log(this.state.value);
+      arr.splice(key, 1, { value: this.state.value});
+      this.setState ({
+        value: arr,
+      });
     };
 
 

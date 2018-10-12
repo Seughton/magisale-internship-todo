@@ -17,9 +17,7 @@ export default (arrToDo = ToDoElems, action) => {
       return list;
     }
     case DELETE_TODO: {
-      console.log(payload.index);
       list = arrToDo;
-      console.log(list)
       return list
     }
     default:
