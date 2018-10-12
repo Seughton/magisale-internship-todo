@@ -16,7 +16,7 @@ class ToDoItem extends Component {
 
   closeChangeField = () => {
       this.setState({isClicked:false})
-  }
+  };
 
     render() {
         return (

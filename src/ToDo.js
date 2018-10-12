@@ -1,35 +1,27 @@
 
 import React, {Component} from 'react';
+import { connect } from "react-redux";
+
+
 import './ToDo.css';
 import ToDoItem from './components/ToDoItem';
 import Logo from './assets/logo.png';
+import addToDo from './Actions/addToDo';
+import deleteToDo from './Actions/deleteToDo';
+import editToDo from './Actions/editToDo';
+
 
 class ToDo extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            list: [
-                {
-                    'todo': "Wash and take away the Kurzhiy's cup from WC"
-                },
-                {
-                    'todo': 'Do some rollton and cigarettes'
-                }
-            ],
-            todo: ''
-        };
-    };
+
 
     createNewToDoItem = () => {
-      this.setState(({ list, todo }) => ({
-        list: [
-            ...list,
-          {
-            todo
-          }
-        ],
-        todo: ''
-      }));
+
+      this.props.addToDo(this.addNewToDoInput.value);
+
+      this.setState({
+        value: this.props.newElem
+      });
+      this.addNewToDoInput.value = ''
     };
 
     handleKeyPress = e => {
@@ -42,37 +34,35 @@ class ToDo extends Component {
 
     handleInput = e => {
       this.setState({
-        todo: e.target.value
+        value: e.target.value
       });
     };
 
-    removeToDoItem = (key) => {
-    let arr = this.state.list;
-    arr.splice(key,1);
-    this.setState ({
-      list: arr
-    })
+    removeToDoItem = (index) => {
+
+      this.props.deleteToDo(index);
+
+       let arr = this.props.testStore;
+       arr.splice(index,1);
+       this.setState({
+         value: arr
+       })
     };
 
 
     handleChange = e => {
-      this.setState({ todo1: e.target.value })
+      console.log(e.target.value)
     };
 
-    saveNewToDoItem = (key) => {
-
-      let arr = this.state.list;
-
-      arr.splice(key, 1, { todo: this.state.todo1 });
-      this.setState ({
-        list: arr,
-      });
+    saveNewToDoItem = (key,value) => {
+      this.props.editToDo(key,value)
 
     };
 
 
     render() {
         return (
+
             <div className="ToDo">
                 <img className="Logo" src={Logo} alt="React logo"/>
                 <h1 className="ToDo-Header">MAGISOFT REACT INTERNSHIP TODO</h1>
@@ -80,28 +70,36 @@ class ToDo extends Component {
 
                     <div className="ToDo-Content">
 
-                        {this.state.list.map((item, key) => {
+                        {this.props.testStore.map((item, key) => {
                                 return <ToDoItem
                                             key = {key}
-                                            item = {item.todo}
+                                            item = {item.value}
                                             removeToDo = {this.removeToDoItem.bind(this,key)}
                                             handleChange = {this.handleChange}
                                             saveNewToDo = {this.saveNewToDoItem.bind(this, key)}
-
                                        />
                           }
                         )}
                     </div>
 
                     <div>
-                       <input type="text" value={this.state.todo} onChange={this.handleInput} onKeyPress={this.handleKeyPress}/>
+                       <input type="text"
+                              value={this.props.testStore.value}
+                              ref={(input) => {this.addNewToDoInput = input}}
+                              onChange={this.handleInput}
+                              onKeyPress={this.handleKeyPress}
+                       />
                        <button className="ToDo-Add" onClick={this.createNewToDoItem}>+</button>
                     </div>
-
                 </div>
             </div>
         );
     }
 }
 
-export default ToDo;
+export default connect(
+
+  state => ({
+    testStore: state.arrToDo
+  }), { addToDo, deleteToDo, editToDo }
+)(ToDo);
