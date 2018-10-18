@@ -14,17 +14,20 @@ import editToDo from './Actions/editToDo';
 class ToDo extends Component {
 
     state = {
-      value: ''
+      value: '',
+      title: ''
     };
 
     createNewToDoItem = () => {
 
-      this.props.addToDo(this.addNewToDoInput.value);
+      this.props.addToDo(this.addNewToDoInput.value,this.addNewDescInput.value);
 
       this.setState({
-        value: this.props.newElem
+        value: this.addNewToDoInput.value,
+        title: this.addNewDescInput.value
       });
-      this.addNewToDoInput.value = ''
+      this.addNewToDoInput.value = '';
+      this.addNewDescInput.value = ''
     };
 
     handleKeyPress = e => {
@@ -54,18 +57,36 @@ class ToDo extends Component {
 
 
       handleChange = (e) => {
-        this.setState({ value: e.target.value })
+        this.setState({
+          value: e.target.value
+        });
+
     };
 
-    saveNewToDoItem = (key,value) => {
-      this.props.editToDo(value);
+    saveNewToDoItem = (key,value,title) => {
+      this.props.editToDo(value,title);
 
       let arr = this.props.testStore;
-      console.log(this.state.value);
-      arr.splice(key, 1, { value: this.state.value});
-      this.setState ({
-        value: arr,
+      arr.splice(key, 1, {
+        value: this.state.value,
+        title: this.state.title
       });
+      this.setState ({
+        value:  this.state.value===''? '' : this.state.value,
+        title: this.state.title
+      });
+      /*if (this.state.value == '') {
+        this.setState({
+          value: 'Write ToDo'
+        })
+      }*/
+    };
+
+    handleDescChange = (e) => {
+      this.setState({
+        title: e.target.value
+      })
+
     };
 
 
@@ -83,8 +104,10 @@ class ToDo extends Component {
                                 return <ToDoItem
                                             key = {key}
                                             item = {item.value}
+                                            title = {item.title}
                                             removeToDo = {this.removeToDoItem.bind(this,key)}
                                             handleChange = {this.handleChange}
+                                            handleDescChange = {this.handleDescChange}
                                             saveNewToDo = {this.saveNewToDoItem.bind(this, key)}
                                        />
                           }
@@ -97,7 +120,15 @@ class ToDo extends Component {
                               ref={(input) => {this.addNewToDoInput = input}}
                               onChange={this.handleInput}
                               onKeyPress={this.handleKeyPress}
+                              placeholder='Write your ToDo'
                        />
+                      <input type="text"
+                             value={this.props.testStore.title}
+                             ref={(input) => {this.addNewDescInput = input}}
+                             onChange={this.handleInput}
+                             onKeyPress={this.handleKeyPress}
+                             placeholder='and add description'
+                      />
                        <button className="ToDo-Add" onClick={this.createNewToDoItem}>+</button>
                     </div>
                 </div>
